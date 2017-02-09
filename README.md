@@ -1,3 +1,3 @@
 # README
 
-Forum on [production](https://sheltered-reaches-34981.herokuapp.com/)
+Forum on [production](https://forumok.herokuapp.com/)
