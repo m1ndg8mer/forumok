@@ -1,5 +1,6 @@
 class Category < ApplicationRecord
-  validates :title, presence: true, length: { in: 3..20 }
+  validates :title, presence: true
+  validates :body, length: { maximum: 100 }
 
   has_many :messages
   belongs_to :user

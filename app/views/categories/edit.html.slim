@@ -7,5 +7,6 @@
           = error
           br
       = f.text_field :title, value: @category.title, class: 'form-control'
+      = f.text_area :body, value: @category.body, class: 'form-control'
       br
       = f.submit 'Update', class: 'btn btn-primary'

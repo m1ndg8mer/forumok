@@ -7,8 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 user = User.create!(name: 'Roman', email: 'r@g.com', password: '1234')
-categories = %w(HTML CSS JavaScript Ruby)
+categories = [
+  { title: 'HTML', body: 'Test body' }
+]
 
-categories.each do |c|
-  user.categories.create!(title: c)
+categories.each do |category|
+  user.categories.create!(title: category[:title], body: category[:body])
 end

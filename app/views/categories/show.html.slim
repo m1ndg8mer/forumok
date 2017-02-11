@@ -1,9 +1,12 @@
 - provide(:title, @category.title)
 h1
   = @category.title
+h4
+  = @category.body
 = link_to 'Edit', edit_category_path
 br
-= link_to 'Delete', @category, method: :delete, data: { confirm: 'You sure?' }
+= link_to 'Delete', @category, method: :delete, data: {confirm: 'You sure?'}
+
 hr
 h5 Comments:
 .row
@@ -16,5 +19,4 @@ ul
   - @messages.each do |message|
     li
       = message.content
-      br
-      = link_to 'x', category_message_url(@category, message), method: :delete, data: { confirm: 'You sure?' }
+      = link_to ' [X]', category_message_url(@category, message), method: :delete, data: {confirm: 'You sure?'}
