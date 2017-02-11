@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
 
   def index
-    @categories = Category.all
+    @categories = Category.all.order(id: :desc)
   end
 
   def new
@@ -10,6 +10,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
+    @messages = @category.messages.order(id: :desc)
   end
 
   def create

@@ -4,3 +4,17 @@ h1
 = link_to 'Edit', edit_category_path
 br
 = link_to 'Delete', @category, method: :delete, data: { confirm: 'You sure?' }
+hr
+h5 Comments:
+.row
+  .col-md-4.col-md-offset-3
+    = form_for [@category, @category.messages.build] do |f|
+      = f.text_field :content, :placeholder => 'Content', class: 'form-control'
+      br
+      = f.submit 'Add', class: 'btn btn-success'
+ul
+  - @messages.each do |message|
+    li
+      = message.content
+      br
+      = link_to 'x', category_message_url(@category, message), method: :delete, data: { confirm: 'You sure?' }
