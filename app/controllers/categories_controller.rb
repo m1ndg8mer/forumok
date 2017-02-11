@@ -10,28 +10,26 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-
-    rescue ActiveRecord::RecordNotFound
-      flash[:danger] = 'Category does not exist!'
   end
 
   def create
     @category = Category.new(category_params)
+    @category.user = User.first # it's for correct adding
 
-    if(@category.save)
+    if @category.save
       redirect_to @category
     else
-      render 'new'
+      render :new
     end
   end
 
   def update
     @category = Category.find(params[:id])
 
-    if(@category.update(category_params))
+    if @category.update_attributes(category_params)
       redirect_to @category
     else
-      render 'edit'
+      render :edit
     end
   end
 
@@ -40,8 +38,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category = Category.find(params[:id])
-    @category.destroy
+    Category.find(params[:id]).destroy
 
     redirect_to categories_path
   end

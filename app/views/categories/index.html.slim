@@ -1,5 +1,8 @@
 - provide(:title, 'Categories')
 h1 Categories
+h5
+  = link_to 'Add', new_category_path
+br
 
 - @categories.each do |category|
   h4
