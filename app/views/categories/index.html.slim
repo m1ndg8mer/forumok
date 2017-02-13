@@ -1,7 +1,8 @@
 - provide(:title, 'Categories')
 h1 Categories
-h5
-  = link_to 'Add', new_category_path
+- if user_signed_in?
+  h5
+    = link_to 'Add', new_category_path
 br
 
 - @categories.each do |category|

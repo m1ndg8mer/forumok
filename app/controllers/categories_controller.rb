@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action -> { owner }, only: [:edit, :update, :destroy]
 
   def index
     @categories = Category.all.order(id: :desc)
@@ -14,8 +16,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(category_params)
-    @category.user = User.first # it's for correct adding
+    @category = current_user.categories.new(category_params)
 
     if @category.save
       redirect_to @category
@@ -48,6 +49,13 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:title, :body)
+  end
+
+  def owner
+    category = Category.find(params[:id])
+    unless current_user == category.user
+      redirect_to category
+    end
   end
 
 end

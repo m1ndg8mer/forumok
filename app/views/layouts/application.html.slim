@@ -10,4 +10,10 @@ html
   body
     = render 'layouts/header'
     div.container
+      - if notice
+        .alert.alert-info
+          = notice
+      - if alert
+        .alert.alert-warning
+          = alert
       = yield

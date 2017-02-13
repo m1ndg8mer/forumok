@@ -10,9 +10,20 @@ nav.navbar.navbar-inverse.navbar-fixed-top
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav
         li
-          a href=root_path  Home
+          = link_to "Home", root_path
         li
-          a href=categories_path  Forum
+          = link_to "Forum", categories_path
+      ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          li
+            = link_to "Profile", edit_user_registration_path
+          li
+            = link_to "Logout", destroy_user_session_path, method: :delete
+        - else
+          li
+            = link_to "Sign Up", new_user_registration_path
+          li
+            = link_to "Login", new_user_session_path
 br
 br
 br
