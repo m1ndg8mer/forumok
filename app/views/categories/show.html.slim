@@ -12,11 +12,11 @@ h5 Comments:
 .row
   .col-md-4.col-md-offset-3
     = form_for [@category, @category.messages.build] do |f|
-      = f.text_field :content, :placeholder => 'Content', class: 'form-control'
+      = f.text_area :content, :placeholder => 'Content', class: 'form-control'
       br
       = f.submit 'Add', class: 'btn btn-success'
-ul
-  - @messages.each do |message|
-    li
-      = message.content
-      = link_to ' [X]', category_message_url(@category, message), method: :delete, data: {confirm: 'You sure?'}
+br
+- @messages.each do |message|
+  pre
+    = message.content
+    = link_to ' [X]', category_message_url(@category, message), method: :delete, data: {confirm: 'You sure?'}

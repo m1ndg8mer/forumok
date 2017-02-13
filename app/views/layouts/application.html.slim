@@ -8,7 +8,6 @@ html
     = csrf_meta_tags
 
   body
-    = link_to 'Home', root_path
-    br
-    = link_to 'Categories', categories_path
-    = yield
+    = render 'layouts/header'
+    div.container
+      = yield
