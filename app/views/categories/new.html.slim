@@ -1,11 +1,16 @@
 - provide(:title, 'Add Category')
 h1 Add Category
 = form_for @category do |f|
+  - if @category.errors.any?
+    .alert.alert-danger
+      - @category.errors.full_messages.each do |message|
+        = message
+        br
   p
     = f.label :title
     = f.text_field :title, class: 'form-control'
   p
-    = f.label :body
+    = f.label :body, 'Problem'
     = f.text_area :body, class: 'form-control', rows: 10
   br
   = f.submit 'Add', class: 'btn btn-success'

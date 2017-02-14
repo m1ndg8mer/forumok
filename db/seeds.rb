@@ -5,12 +5,3 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-user = User.create!(name: 'Roman', email: 'r@g.com', password: '1234')
-categories = [
-  { title: 'HTML', body: 'Test body' }
-]
-
-categories.each do |category|
-  user.categories.create!(title: category[:title], body: category[:body])
-end

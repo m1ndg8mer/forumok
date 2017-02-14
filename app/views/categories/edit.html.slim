@@ -1,11 +1,16 @@
 - provide(:title, 'Edit Category')
 h1 Edit Category
 = form_for @category do |f|
+  - if @category.errors.any?
+    .alert.alert-danger
+      - @category.errors.full_messages.each do |message|
+        = message
+        br
   p
     = f.label :title
     = f.text_field :title, value: @category.title, class: 'form-control'
   p
-    = f.label :body
+    = f.label :body, 'Problem'
     = f.text_area :body, value: @category.body, class: 'form-control', rows: 10
   br
   = f.submit 'Update', class: 'btn btn-primary'

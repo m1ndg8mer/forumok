@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
-  before_action -> { owner }, only: [:destroy]
+  before_action :check_owner, only: [:destroy]
 
   def new
     @message = Message.new
@@ -28,11 +28,9 @@ class MessagesController < ApplicationController
     params.require(:message).permit(:content)
   end
 
-  def owner
-    message = Message.find(params[:id])
-    unless current_user == message.user
-      redirect_to Category.find(params[:category_id])
-    end
+  def check_owner
+    return true if current_user == Message.find(params[:id]).user
+    redirect_to Category.find(params[:category_id]), notice: 'Access Denied'
   end
 
 end

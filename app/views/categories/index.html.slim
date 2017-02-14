@@ -1,10 +1,37 @@
 - provide(:title, 'Categories')
 h1 Categories
 - if user_signed_in?
-  h5
-    = link_to 'Add', new_category_path
+    = link_to 'Create', new_category_path, class: 'btn btn-success'
+br
 br
 
-- @categories.each do |category|
-  h4
-    = link_to category.title, category_path(category)
+.table-responsive
+  table.table.table-bordered.table-hover
+    tr.active
+      th.width_15
+        h4 Category
+      th.width_15
+        h4 Author
+      th.width_20
+        h4 Date
+      th.width_15 colspan="2"
+        h4 Actions
+    - @categories.each do |category|
+      tr.info
+        td
+          = link_to category.title, category_path(category)
+        td
+          = category.user.name
+        td
+          = category.created_at.localtime.strftime("%d/%m/%Y at %r")
+        - if current_user == category.user
+          td
+            = link_to 'Edit', edit_category_path(category), class: 'btn btn-primary'
+          td
+            = link_to 'Delete', category, method: :delete, data: {confirm: 'You sure?'}, class: 'btn btn-danger'
+        - else
+          td
+            = 'You are not author'
+          td
+- if @categories.length == 0
+  h4 Categories list is empty...

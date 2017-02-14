@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action -> { owner }, only: [:edit, :update, :destroy]
+  before_action :check_owner, only: [:edit, :update, :destroy]
 
   def index
     @categories = Category.all.order(id: :desc)
@@ -11,8 +11,8 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @category = Category.find(params[:id])
-    @messages = @category.messages.order(id: :desc)
+    initialize_category
+    @messages = @category.messages.order(:id)
   end
 
   def create
@@ -26,7 +26,7 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    @category = Category.find(params[:id])
+    initialize_category
 
     if @category.update_attributes(category_params)
       redirect_to @category
@@ -36,11 +36,12 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    @category = Category.find(params[:id])
+    initialize_category
   end
 
   def destroy
-    Category.find(params[:id]).destroy
+    initialize_category
+    @category.destroy
 
     redirect_to categories_path
   end
@@ -51,11 +52,13 @@ class CategoriesController < ApplicationController
     params.require(:category).permit(:title, :body)
   end
 
-  def owner
-    category = Category.find(params[:id])
-    unless current_user == category.user
-      redirect_to category
-    end
+  def check_owner
+    return true if current_user == Category.find(params[:id]).user
+    redirect_to categories_path, alert: 'Access Denied!'
+  end
+
+  def initialize_category
+    @category = Category.find(params[:id])
   end
 
 end

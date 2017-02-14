@@ -1,24 +1,120 @@
 - provide(:title, @category.title)
-h1
-  = @category.title
-h4
-  = @category.body
-- if current_user == @category.user
-  = link_to 'Edit', edit_category_path
-  br
-  = link_to 'Delete', @category, method: :delete, data: {confirm: 'You sure?'}
+.title
+  h3
+    = @category.title
+.detailBox
+  .titleBox
+    label Problem
+  .commentBox
+    p.taskDescription
+      pre
+        = @category.body
+  .titleBox
+    label
+      = "Comments(#{@messages.length})"
+  .actionBox
+    - @messages.each do |message|
+      .commenterImage
+        img src="http://placekitten.com/45/45" /
+      .commentText
+        pre
+          p
+            = message.content
+            - if current_user == message.user
+              = link_to ' [X]', category_message_url(@category, message), method: :delete, data: {confirm: 'You sure?'}
+          span.date.sub-text
+            = message.created_at.localtime.strftime("%d/%m/%Y at %r")
+            = " by #{message.user.name}"
+    - if user_signed_in?
+      = form_for [@category, @category.messages.build], :html => {:class => 'form-inline'} do |f|
+        .form-group
+          = f.text_area :content, :placeholder => 'Your comments', class: 'form-control', cols: 200, rows: 5
+        br
+        br
+        = f.submit 'Add', class: 'btn btn-primary'
 
-hr
-h5 Comments:
-.row
-  .col-md-4.col-md-offset-3
-    = form_for [@category, @category.messages.build] do |f|
-      = f.text_area :content, :placeholder => 'Content', class: 'form-control'
-      br
-      = f.submit 'Add', class: 'btn btn-success'
-br
-- @messages.each do |message|
-  pre
-    = message.content
-    - if current_user == message.user
-      = link_to ' [X]', category_message_url(@category, message), method: :delete, data: {confirm: 'You sure?'}
+css:
+  .detailBox {
+    width: 100%;
+    border: 1px solid #bbb;
+    margin: 50px;
+  }
+
+  .titleBox {
+    background-color: #fdfdfd;
+    padding: 10px;
+  }
+
+  .titleBox label {
+    color: #444;
+    margin: 0;
+    display: inline-block;
+  }
+
+  .commentBox {
+    padding: 10px;
+    border-top: 1px dotted #bbb;
+  }
+
+  .commentBox .form-group:first-child, .actionBox .form-group:first-child {
+    width: 150%;
+  }
+
+  .commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
+    width: 50%;
+  }
+
+  .actionBox .form-group * {
+    width: 100%;
+  }
+
+  .taskDescription {
+    margin-top: 10px 0;
+  }
+
+  .commentList {
+    padding: 0;
+    list-style: none;
+    max-height: 500px;
+    overflow: auto;
+  }
+
+  .commentList li {
+    margin: 0;
+    margin-top: 10px;
+  }
+
+  .commentList li > div {
+    display: table-cell;
+  }
+
+  .commenterImage {
+    width: 30px;
+    margin-right: 5px;
+    height: 100%;
+    float: left;
+  }
+
+  .commenterImage img {
+    width: 100%;
+    border-radius: 50%;
+  }
+
+  .commentText p {
+    margin: 0;
+  }
+
+  .sub-text {
+    color: #aaa;
+    font-family: verdana;
+    font-size: 11px;
+  }
+
+  .actionBox {
+    border-top: 1px dotted #bbb;
+    padding: 10px;
+  }
+
+  .title {
+    margin-left: 45%;
+  }
