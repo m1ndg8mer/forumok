@@ -24,7 +24,7 @@ br
           = category.user.name
         td
           = category.created_at.localtime.strftime("%d/%m/%Y at %r")
-        - if current_user == category.user
+        - if check_role?([:admin, :moderator]) || current_user == category.user
           td
             = link_to 'Edit', edit_category_path(category), class: 'btn btn-primary'
           td

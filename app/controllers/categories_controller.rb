@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
+  load_and_authorize_resource
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :check_owner, only: [:edit, :update, :destroy]
+  before_action :initialize_category, except: [:index, :new, :create]
 
   def index
     @categories = Category.all.order(id: :desc)
@@ -11,7 +12,6 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    initialize_category
     @messages = @category.messages.order(:id)
   end
 
@@ -26,8 +26,6 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    initialize_category
-
     if @category.update_attributes(category_params)
       redirect_to @category
     else
@@ -36,11 +34,9 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    initialize_category
   end
 
   def destroy
-    initialize_category
     @category.destroy
 
     redirect_to categories_path
@@ -50,11 +46,6 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:title, :body)
-  end
-
-  def check_owner
-    return true if current_user == Category.find(params[:id]).user
-    redirect_to categories_path, alert: 'Access Denied!'
   end
 
   def initialize_category

@@ -13,6 +13,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'autoprefixer-rails'
 gem 'devise'
+gem 'cancancan'
+gem 'rolify'
 
 group :development, :test do
   gem 'byebug', platform: :mri

@@ -8,4 +8,14 @@ module ApplicationHelper
       base_title + ' | ' + page_title
     end
   end
+
+  def check_role?(roles)
+    if user_signed_in?
+      roles.each do |role|
+        return true if current_user.has_role? role
+      end
+    end
+    false
+  end
+
 end
