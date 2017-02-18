@@ -14,7 +14,7 @@ br
         h4 Author
       th.width_20
         h4 Date
-      th.width_15 colspan="2"
+      th.width_15 colspan='3'
         h4 Actions
     - @categories.each do |category|
       tr.info
@@ -29,6 +29,13 @@ br
             = link_to 'Edit', edit_category_path(category), class: 'btn btn-primary'
           td
             = link_to 'Delete', category, method: :delete, data: {confirm: 'You sure?'}, class: 'btn btn-danger'
+          - if check_role? [:admin, :moderator]
+            td
+              - if category.published
+                - text_url = 'Hide'
+              - else
+                - text_url = 'Publish'
+              = link_to "#{text_url}", publish_category_path(category), class: 'btn btn-success'
         - else
           td
             = 'You are not author'

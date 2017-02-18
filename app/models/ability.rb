@@ -8,11 +8,11 @@ class Ability
       can :manage, :all
     elsif user.has_role? :moderator
       can :manage, [Category, Message]
+      can :publish, Category
     elsif user.has_role? :user
       can :manage, [Category, Message], user_id: user.id
     end
     can :read, [Category, Message]
-
   end
 
 end

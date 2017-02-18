@@ -1,10 +1,16 @@
 class CategoriesController < ApplicationController
+  include ApplicationHelper
+
   load_and_authorize_resource
   before_action :authenticate_user!, except: [:index, :show]
   before_action :initialize_category, except: [:index, :new, :create]
 
   def index
-    @categories = Category.all.order(id: :desc)
+    if check_role? [:admin, :moderator]
+      @categories = Category.all
+    else
+      @categories = Category.published
+    end
   end
 
   def new
@@ -12,6 +18,9 @@ class CategoriesController < ApplicationController
   end
 
   def show
+    unless @category.published
+      redirect_to categories_path, :alert => 'The category is not published yet!'
+    end
     @messages = @category.messages.order(:id)
   end
 
@@ -19,7 +28,7 @@ class CategoriesController < ApplicationController
     @category = current_user.categories.new(category_params)
 
     if @category.save
-      redirect_to @category
+      redirect_to categories_path, :notice => 'Your category is reviewing by moderator.'
     else
       render :new
     end
@@ -40,6 +49,15 @@ class CategoriesController < ApplicationController
     @category.destroy
 
     redirect_to categories_path
+  end
+
+  def publish
+    if can? :publish, current_user
+      Category.update(@category.id, published: !@category.published)
+      redirect_to categories_path, :notice => 'Updated!'
+    else
+      redirect_to categories_path, :alert => 'Access Denied!'
+    end
   end
 
   private
