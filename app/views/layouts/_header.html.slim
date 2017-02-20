@@ -15,7 +15,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
           = link_to "Forum", categories_path
         - if check_role? [:admin]
           li
-            = link_to "Users", root_path
+            = link_to "Users", admin_users_path
       ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           li

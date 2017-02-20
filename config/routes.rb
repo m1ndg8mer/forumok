@@ -10,4 +10,12 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :admin do
+    resources :users, only: [:index] do
+      member do
+        get :change_role
+      end
+    end
+  end
+
 end

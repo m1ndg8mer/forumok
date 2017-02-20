@@ -1,0 +1,26 @@
+h1 Users
+table.table.table-bordered
+  thead
+    tr
+      th Name
+      th Role
+      th Email
+      th Action
+  tbody
+    - @users.each do |user|
+      tr
+        td
+          = user.name
+        td
+          = user.roles.first.name.capitalize
+        td
+          = user.email
+        td
+          - if user.has_role? :user
+            - link = 'Moderator'
+          - elsif user.has_role? :moderator
+            - link = 'User'
+          - unless user.has_role? :admin
+            = link_to "Make #{link}", change_role_admin_user_path(user), class: 'btn btn-primary'
+          - else
+            = 'You are admin'
