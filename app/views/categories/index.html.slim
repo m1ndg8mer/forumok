@@ -21,10 +21,13 @@ br
         td
           = link_to category.title, category_path(category)
         td
-          = category.user.name
+          - if category.user
+            = category.user.name
+          - else
+            = 'Author has been deleted.'
         td
           = category.created_at.localtime.strftime("%d/%m/%Y at %r")
-        - if check_role?([:admin, :moderator]) || current_user == category.user
+        - if check_role?([:admin, :moderator]) || (current_user == category.user && user_signed_in?)
           td
             = link_to 'Edit', edit_category_path(category), class: 'btn btn-primary'
           td

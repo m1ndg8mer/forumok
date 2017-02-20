@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_many :messages
 
   def assign_role
-    add_role(:user)
+    self.add_role(:user) if self.roles.blank?
   end
 
 end

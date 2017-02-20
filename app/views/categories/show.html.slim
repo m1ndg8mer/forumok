@@ -20,12 +20,13 @@
         pre
           p
             = message.content
-            - if check_role?([:admin, :moderator]) || current_user == message.user
+            - if check_role?([:admin, :moderator]) || (current_user == message.user && user_signed_in?)
               = link_to '', category_message_url(@category, message), method: :delete,
                         data: {confirm: 'You sure?'}, class: 'glyphicon glyphicon-remove'
           span.date.sub-text
             = message.created_at.localtime.strftime("%d/%m/%Y at %r")
-            = " by #{message.user.name}"
+            - if message.user
+              = " by #{message.user.name}"
     - if user_signed_in?
       = form_for [@category, @category.messages.build], :html => {:class => 'form-inline'} do |f|
         .form-group

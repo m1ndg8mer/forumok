@@ -52,12 +52,8 @@ class CategoriesController < ApplicationController
   end
 
   def publish
-    if can? :publish, current_user
-      Category.update(@category.id, published: !@category.published)
-      redirect_to categories_path, :notice => 'Updated!'
-    else
-      redirect_to categories_path, :alert => 'Access Denied!'
-    end
+    Category.update(@category.id, published: !@category.published)
+    redirect_to categories_path, :notice => 'Updated!'
   end
 
   private
