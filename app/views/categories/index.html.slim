@@ -19,7 +19,7 @@ br
     - @categories.each do |category|
       tr.info
         td
-          = link_to category.title, category_path(category)
+          = link_to " #{category.title}", category_path(category), class: 'glyphicon glyphicon-comment'
         td
           - if category.user
             = category.user.name

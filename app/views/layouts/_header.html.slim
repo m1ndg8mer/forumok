@@ -10,23 +10,23 @@ nav.navbar.navbar-inverse.navbar-fixed-top
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav
         li
-          = link_to "Home", root_path
+          = link_to " Home", root_path, class: 'glyphicon glyphicon-home'
         li
-          = link_to "Forum", categories_path
+          = link_to " Forum", categories_path, class: 'glyphicon glyphicon-list-alt'
         - if check_role? [:admin]
           li
-            = link_to "Users", admin_users_path
+            = link_to " Users", admin_users_path, class: 'glyphicon glyphicon-cog'
       ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           li
-            = link_to "Profile", edit_user_registration_path
+            = link_to " Profile", edit_user_registration_path, class: 'glyphicon glyphicon-user'
           li
-            = link_to "Logout", destroy_user_session_path, method: :delete
+            = link_to " Logout", destroy_user_session_path, method: :delete, class: 'glyphicon glyphicon-log-out'
         - else
           li
-            = link_to "Sign Up", new_user_registration_path
+            = link_to " Sign-Up", new_user_registration_path, class: 'glyphicon glyphicon-user'
           li
-            = link_to "Login", new_user_session_path
+            = link_to " Login", new_user_session_path, class: 'glyphicon glyphicon-log-in'
 br
 br
 br
