@@ -46,6 +46,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
+    @category.messages.each(&:destroy!)
     @category.destroy
 
     redirect_to categories_path

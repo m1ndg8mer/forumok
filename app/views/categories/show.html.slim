@@ -2,35 +2,42 @@
 .title
   h3
     = @category.title
+hr
+p
+  span.glyphicon-glyphicon-time
+    = "Posted on #{@category.created_at.localtime.strftime('%d/%m/%Y at %r')}"
+hr
 .detailBox
   .titleBox
     label Problem
   .commentBox
-    p.taskDescription
+    p
       pre
         = @category.body
   .titleBox
     label
       = "Comments(#{@messages.length})"
-  .actionBox
     - @messages.each do |message|
-      .commenterImage
-        img src="http://placekitten.com/45/45" /
-      .commentText
-        pre
-          p
-            = message.content
-            - if check_role?([:admin, :moderator]) || (current_user == message.user && user_signed_in?)
-              = link_to '', category_message_url(@category, message), method: :delete,
+      .media
+        .comment
+          span.pull-left.ava
+            = image_tag message.user.avatar.url(:thumb), width: 100, height: 100
+          .media-body
+            h4.media-heading
+              - if message.user
+                = message.user.name
+              small
+                = " #{message.created_at.localtime.strftime("%d/%m/%Y at %r")}"
+            pre
+              = message.content
+              - if check_role?([:admin, :moderator]) || (current_user == message.user && user_signed_in?)
+                = link_to '', category_message_url(@category, message), method: :delete,
                         data: {confirm: 'You sure?'}, class: 'glyphicon glyphicon-remove'
-          span.date.sub-text
-            = message.created_at.localtime.strftime("%d/%m/%Y at %r")
-            - if message.user
-              = " by #{message.user.name}"
+    br
     - if user_signed_in?
       = form_for [@category, @category.messages.build], :html => {:class => 'form-inline'} do |f|
         .form-group
-          = f.text_area :content, :placeholder => 'Your comments', class: 'form-control', cols: 200, rows: 5
+          = f.text_area :content, :placeholder => 'Your comment...', class: 'form-control', cols: 173, rows: 5
         br
         br
         = f.submit 'Add', class: 'btn btn-primary'

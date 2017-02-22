@@ -38,7 +38,7 @@ br
                 - text_url = 'Hide'
               - else
                 - text_url = 'Publish'
-              = link_to "#{text_url}", publish_category_path(category), class: 'btn btn-success'
+              = link_to "#{text_url}", publish_category_path(category), method: :patch, class: 'btn btn-success'
         - else
           td
             = 'You are not author'

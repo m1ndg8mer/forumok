@@ -7,6 +7,9 @@ h2
     .alert.alert-danger
       = devise_error_messages!
   .field.form-group
+    = image_tag current_user.avatar.url(:medium), width: 200, height: 200
+    = f.file_field :avatar, class: 'form-control'
+  .field.form-group
     = f.label :name
     = f.text_field :name, autofocus: true, class: 'form-control'
   .field.form-group

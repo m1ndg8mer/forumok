@@ -6,14 +6,14 @@ Rails.application.routes.draw do
   resources :categories do
     resources :messages, only: [:new, :create, :destroy]
     member do
-      get :publish
+      patch :publish
     end
   end
 
   namespace :admin do
     resources :users, only: [:index] do
       member do
-        get :change_role
+        patch :change_role
       end
     end
   end
