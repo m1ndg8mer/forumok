@@ -33,6 +33,7 @@ hr
               - if check_role?([:admin, :moderator]) || (current_user == message.user && user_signed_in?)
                 = link_to '', category_message_url(@category, message), method: :delete,
                         data: {confirm: 'You sure?'}, class: 'glyphicon glyphicon-remove'
+    = will_paginate @messages, renderer: BootstrapPagination::Rails
     br
     - if user_signed_in?
       = form_for [@category, @category.messages.build], :html => {:class => 'form-inline'} do |f|

@@ -7,9 +7,9 @@ class CategoriesController < ApplicationController
 
   def index
     if check_role? [:admin, :moderator]
-      @categories = Category.all
+      @categories = Category.paginate(:page => params[:page], :per_page => 10)
     else
-      @categories = Category.published
+      @categories = Category.published.paginate(:page => params[:page], :per_page => 10)
     end
   end
 
@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
     unless @category.published
       redirect_to categories_path, :alert => 'The category is not published yet!'
     end
-    @messages = @category.messages.order(:id)
+    @messages = @category.messages.paginate(:page => params[:page], :per_page => 10).order(:id)
   end
 
   def create
