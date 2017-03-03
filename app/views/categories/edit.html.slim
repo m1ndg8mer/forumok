@@ -12,5 +12,4 @@ h1 Edit Category
   p
     = f.label :body, 'Problem'
     = f.text_area :body, value: @category.body, class: 'form-control', rows: 10
-  br
   = f.submit 'Update', class: 'btn btn-primary'

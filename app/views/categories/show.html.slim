@@ -39,6 +39,4 @@ hr
       = form_for [@category, @category.messages.build], :html => {:class => 'form-inline'} do |f|
         .form-group
           = f.text_area :content, :placeholder => 'Your comment...', class: 'form-control', cols: 173, rows: 5
-        br
-        br
         = f.submit 'Add', class: 'btn btn-primary'

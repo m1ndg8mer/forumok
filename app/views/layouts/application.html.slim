@@ -8,9 +8,10 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
     = favicon_link_tag 'favicon.ico'
     = csrf_meta_tags
+    link href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700%7CPlayfair+Display:400,700,700i,900,900i" rel="stylesheet" type="text/css" /
 
   body
-    = render 'layouts/header'
+    = render 'layouts/shared/header'
     div.container
       - if notice
         .alert.alert-info
@@ -19,4 +20,4 @@ html
         .alert.alert-warning
           = alert
       = yield
-      = render 'layouts/footer'
+      = render 'layouts/shared/footer'

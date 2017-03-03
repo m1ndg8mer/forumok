@@ -1,0 +1,8 @@
+.page
+  = render 'layouts/shared/design/swiper-section'
+  = render 'layouts/shared/design/article-section'
+  = render partial: 'layouts/shared/design/count-section', locals: { clients_count: @clients_count,
+          categories_count: @categories_count,
+          messages_count: @messages_count,
+          roles_count: @roles_count }
+  = render partial: 'layouts/shared/design/latest-topics-section', locals: { last_categories: @last_categories }

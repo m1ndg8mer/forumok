@@ -1,0 +1,16 @@
+section
+  .swiper-container.swiper-slider.swiper-variant-.bg-gray-base data-autoplay="false" data-loop="false" data-simulate-touch="true"
+    .swiper-wrapper.text-center
+      .swiper-slide
+        .swiper-slide-caption
+          .shell
+            .range.range-xs-center
+              .cell-sm-11.cell-md-10
+                .text-white.text-uppercase.jumbotron-custom.border-modern data-caption-animate="fadeInUp" data-caption-delay="0s"
+                  | Welcome to the ForumOk!
+                .offset-sm-top-5 data-caption-animate="fadeInUp" data-caption-delay="450s"
+                  p.text-big-19.text-white.veil.reveal-sm-inline-block
+                    | Here you can discussing whatever!
+                - unless user_signed_in?
+                  .offset-top-27 data-caption-animate="fadeInUp" data-caption-delay="550s"
+                    = link_to 'Sign-Up', new_user_registration_path, class: 'btn btn-primary'

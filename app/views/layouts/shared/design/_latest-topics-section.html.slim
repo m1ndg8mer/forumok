@@ -1,0 +1,18 @@
+section.section-50.section-sm-90.section-sm-bottom-100
+  .shell.text-center
+    h3
+      | Latest Topics
+    .range.range-xs-center.offset-top-40
+      - last_categories.each do |category|
+        .cell-xs-8.cell-sm-7.cell-md-4
+          .post-boxed.reveal-lg-inline-block
+            .post-boxed-caption
+              .post-boxed-title.text-bold
+                = link_to "#{category.title}", category_path(category)
+              .offset-top-5
+                ul.list-inline.list-inline-dashed.text-uppercase
+                  li
+                    = category.created_at.localtime.strftime('%^B %d, %Y')
+                  li
+                    span
+                      = "by #{category.user.name}"

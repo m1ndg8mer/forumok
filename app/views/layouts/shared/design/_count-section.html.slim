@@ -1,0 +1,27 @@
+section.section-with-counters.bg-primary.text-center
+  .shell.bg-cape-cod.context-dark.section-60.section-md-90
+    h4.text-rolling-stone.text-bold.text-uppercase Looking for
+    h3.offset-top-2
+      span.text-thin a First-Class
+      | forum?
+    p.text-white Here is it!
+    .range.offset-top-60.list-md-dashed
+      .cell-sm-3
+        .h1.small.counter-bold.counter
+          = clients_count
+        .offset-top-0.text-bold.text-white.text-uppercase Trusted Clients
+      .cell-sm-3.offset-top-40.offset-sm-top-0
+        .h1.small.counter-bold.counter
+          = categories_count
+        .offset-top-0.text-bold.text-white.text-uppercase Topics
+      .cell-sm-3.offset-top-40.offset-sm-top-0
+        .h1.small.counter-bold.counter
+          = messages_count
+        .offset-top-0.text-bold.text-white.text-uppercase Messages
+      .cell-sm-3.offset-top-40.offset-sm-top-0
+        .h1.small.counter-bold.counter
+          = roles_count
+        .offset-top-0.text-bold.text-white.text-uppercase Roles
+    .offset-top-50.offset-md-top-75.inset-xs-left-60.inset-xs-right-60
+      .reveal-sm-flex.range-sm-center.range-sm-middle
+        = link_to 'See All Topics', categories_path, class: 'btn btn-rect btn-primary reveal-block reveal-sm-inline-block'

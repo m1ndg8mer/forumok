@@ -2,3 +2,15 @@
 @import "bootstrap";
 
 @import "./*";
+
+a {
+  margin: 0 !important;
+}
+
+input {
+  min-height: 34px !important;
+}
+
+.swiper-slide {
+  background-image: url("//livedemo00.template-help.com/wt_61349/images/home-slider-1-slide-1.jpg");
+}
