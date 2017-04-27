@@ -30,12 +30,13 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'better_errors'
-  gem 'faker'
 end
 
 group :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'rails-controller-testing'
+  gem 'faker'
   gem 'capybara'
   gem 'launchy'
   gem 'database_cleaner'
